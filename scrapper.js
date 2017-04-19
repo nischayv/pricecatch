@@ -8,7 +8,7 @@ function getPrice(url, cb) {
       return cb(err, null);
     }
     const $ = cheerio.load(html);
-    const price = $('#priceblock_ourprice_row').find('#priceblock_ourprice') text();
+    const price = $('#priceblock_ourprice_row').find('#priceblock_ourprice').text();
     return cb(null, price);
   });
 }
