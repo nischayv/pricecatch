@@ -6,6 +6,8 @@
     "start": "node server"
   },
   "dependencies": {
-    "firebase-admin": "^4.2.1"
+    "cheerio": "^0.22.0",
+    "firebase-admin": "^4.2.1",
+    "request": "^2.81.0"
   }
 }
