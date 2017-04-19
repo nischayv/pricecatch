@@ -6,6 +6,6 @@
     "start": "node server"
   },
   "dependencies": {
-    "express": "~4.14.1"
+    "firebase-admin": "^4.2.1"
   }
 }
