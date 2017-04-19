@@ -1,6 +1,5 @@
 const firebase = require('firebase-admin');
 
-
 const serviceAccount = require('path to cert');
 
 firebase.initializeApp({
