@@ -4,7 +4,7 @@
   "description": "An amazon.com extension to track product prices and set email alerts",
   "version": "1.0",
   "background": {
-    "scripts": ["js/background.js"],
+    "scripts": ["app/service.js"],
     "persistent": false
   },
   "page_action": {
