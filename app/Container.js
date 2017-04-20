@@ -1,7 +1,7 @@
 import React from 'react';
 import request from 'request'
 import cheerio from 'cheerio'
-import { TextField } from 'material-ui'
+import { TextField, Card, CardMedia } from 'material-ui'
 
 class AppContainer extends React.Component {
 
@@ -46,6 +46,13 @@ class AppContainer extends React.Component {
         <TextField
           hintText="Email"
         /><br />
+        <Card>
+          <CardMedia
+            overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
+          >
+            <img src={this.state.imageSrc} />
+          </CardMedia>
+        </Card>
       </div>
     )
   }
