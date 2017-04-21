@@ -1,14 +1,12 @@
 import React from 'react';
-import request from 'request'
-import cheerio from 'cheerio'
-import { TextField, Card, CardMedia } from 'material-ui'
+import TextField from 'material-ui/TextField'
+import { Card, CardMedia, CardTitle } from 'material-ui/Card'
 
 class AppContainer extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      urL: '',
+      url: '',
       imageSrc: '',
       price: '',
       email: ''
@@ -24,18 +22,9 @@ class AppContainer extends React.Component {
     chrome.tabs.query(queryInfo, (tabs) => {
       const tab = tabs[0];
       const url = tab.url;
-      console.assert(typeof url == 'string', 'tab.url should be a string');
       this.setState({ url: url });
-      request(this.state.url, (err, res, html) => {
-        if (err) {
-          return err;
-        }
-        const $ = cheerio.load(html);
-        const price = $('#priceblock_ourprice_row').find('#priceblock_ourprice').text();
-        const img = $('#landingImage').attr('src');
-        this.setState({ price: price })
-        this.setState({ imageSrc: img })
-      });
+      this.setState({ imageSrc: 'https://images-na.ssl-images-amazon.com/images/I/71LVvAnlJQL._SX522_.jpg' });
+      this.setState({ price: '9.99' });
     });
   }
 
@@ -43,9 +32,6 @@ class AppContainer extends React.Component {
     return (
       <div>
         <label>Enter your email to view get updates biaatch</label>
-        <TextField
-          hintText="Email"
-        /><br />
         <Card>
           <CardMedia
             overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
@@ -53,7 +39,11 @@ class AppContainer extends React.Component {
             <img src={this.state.imageSrc} />
           </CardMedia>
         </Card>
+        <label>{this.state.price}</label>
+        <label>{this.state.url}</label>
       </div>
-    )
+    );
   }
 }
+
+export default AppContainer;
