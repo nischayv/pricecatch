@@ -1,19 +1,16 @@
 import React from 'react';
-import TextField from 'material-ui/TextField'
-import { Card, CardMedia, CardTitle } from 'material-ui/Card'
+import RaisedButton from 'material-ui/RaisedButton';
 
 class AppContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       url: '',
-      imageSrc: '',
-      price: '',
-      email: ''
+      isTracking: false
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const queryInfo = {
       active: true,
       currentWindow: true
@@ -23,24 +20,40 @@ class AppContainer extends React.Component {
       const tab = tabs[0];
       const url = tab.url;
       this.setState({ url: url });
-      this.setState({ imageSrc: 'https://images-na.ssl-images-amazon.com/images/I/71LVvAnlJQL._SX522_.jpg' });
-      this.setState({ price: '9.99' });
     });
   }
 
+  track() {
+    fetch('http://localhost:8080/api/track', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          url: this.state.url
+        })
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson);
+        this.setState({ isTracking: true });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   render() {
+    let elem = null;
+    if (this.state.isTracking) {
+      elem = <div>Product is being tracked</div>;
+    } else {
+      elem = <RaisedButton buttonStyle={{'width': '100px'}} onClick={this.track.bind(this)}>Track</RaisedButton>;
+    }
     return (
       <div>
-        <label>Enter your email to view get updates biaatch</label>
-        <Card>
-          <CardMedia
-            overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
-          >
-            <img src={this.state.imageSrc} />
-          </CardMedia>
-        </Card>
-        <label>{this.state.price}</label>
-        <label>{this.state.url}</label>
+        { elem }
       </div>
     );
   }

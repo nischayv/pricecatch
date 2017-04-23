@@ -16,7 +16,6 @@ class App extends React.Component {
   }
 }
 
-// Render to index.html
 ReactDOM.render(
   <App />,
   document.getElementById('content')
